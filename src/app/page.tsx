@@ -14,6 +14,8 @@ import { Calendar, User, ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import { HomeStats } from "@/components/HomeStats";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const mainBlogs = mockBlogPosts.map((m) => ({
     id: m.id,
@@ -100,9 +102,9 @@ export default async function Home() {
                     </div>
                   )}
                 </div>
-                <CardHeader>
-                  <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">
+                <CardHeader className="pb-1">
+                  <CardTitle className="line-clamp-2 leading-snug min-h-[2.75em]">{post.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 leading-snug">
                     {post.excerpt}
                   </CardDescription>
                 </CardHeader>

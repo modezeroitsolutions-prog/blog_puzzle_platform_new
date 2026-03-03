@@ -207,7 +207,7 @@ export default function SolvePuzzlePage() {
                       </Badge>
                       <Badge variant="outline">{puzzle.category}</Badge>
                     </div>
-                    <CardTitle className="text-3xl">{puzzle.title}</CardTitle>
+                    <CardTitle className="text-3xl leading-snug pb-1 break-words">{puzzle.title}</CardTitle>
                     <CardDescription>{puzzle.description}</CardDescription>
                   </div>
                   <div className="text-right">

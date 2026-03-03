@@ -48,7 +48,7 @@ export function HomeStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-7">
           <CardTitle className="text-3xl text-blue-600">
             {stats === null ? "…" : puzzleCount.toLocaleString()}
           </CardTitle>
@@ -56,7 +56,7 @@ export function HomeStats() {
         </CardHeader>
       </Card>
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-7">
           <CardTitle className="text-3xl text-purple-600">
             {stats === null ? "…" : `${totalCoins.toLocaleString()} coins`}
           </CardTitle>
@@ -64,7 +64,7 @@ export function HomeStats() {
         </CardHeader>
       </Card>
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-7">
           <CardTitle className="text-3xl text-green-600">
             {stats === null ? "…" : userCount.toLocaleString()}
           </CardTitle>

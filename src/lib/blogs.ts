@@ -7,6 +7,7 @@ import {
   query,
   limit,
   where,
+  orderBy,
   serverTimestamp,
   deleteDoc,
 } from "firebase/firestore";
@@ -25,7 +26,11 @@ export interface BlogPost {
 }
 
 export async function getBlogs(limitCount = 20): Promise<BlogPost[]> {
-  const q = query(collection(db, "blogs"), limit(limitCount));
+  const q = query(
+    collection(db, "blogs"),
+    orderBy("createdAt", "desc"),
+    limit(limitCount)
+  );
   const snap = await getDocs(q);
   const list = snap.docs.map((d) => ({
     id: d.id,

@@ -62,7 +62,7 @@ export default async function AuthorBlogsPage({ params }: PageProps) {
             <User className="w-5 h-5" />
             <span className="text-sm font-medium">Author</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold">{authorName}</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold leading-snug pb-1 break-words">{authorName}</h1>
           <p className="mt-2 text-white/80">
             {blogs.length} {blogs.length === 1 ? "article" : "articles"}
           </p>
@@ -88,9 +88,9 @@ export default async function AuthorBlogsPage({ params }: PageProps) {
                   </span>
                 </div>
               )}
-              <CardHeader>
-                <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                <CardDescription className="line-clamp-2">
+              <CardHeader className="pb-1">
+                <CardTitle className="line-clamp-2 leading-snug min-h-[2.75em]">{post.title}</CardTitle>
+                <CardDescription className="line-clamp-2 leading-snug">
                   {post.excerpt}
                 </CardDescription>
               </CardHeader>

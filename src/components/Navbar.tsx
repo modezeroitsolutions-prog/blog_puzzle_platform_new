@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 import {
@@ -19,7 +19,13 @@ import { signOut } from "@/lib/auth";
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { firebaseUser, firestoreUser, loading } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/");
+  };
 
   const isActive = (path: string) => pathname === path;
   const isAdmin = firestoreUser?.role === "admin";
@@ -96,14 +102,17 @@ export function Navbar() {
                   <Wallet className="w-4 h-4" />
                   <span className="font-medium">{firestoreUser.coins} coins</span>
                 </Link>
-                <div className="flex items-center gap-2 text-sm">
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-2 text-sm text-slate-700 hover:text-blue-600"
+                >
                   <User className="w-4 h-4" />
                   <span className="truncate max-w-[120px]">{firestoreUser.email}</span>
-                </div>
+                </Link>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => signOut()}
+                  onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4 mr-1" />
                   Logout

@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <BookOpen className="w-4 h-4" />
             <span>Article</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold leading-snug pb-1 mb-4 break-words">
             {post.title}
           </h1>
           <div className="flex flex-wrap items-center gap-6 text-white/90">
@@ -147,12 +147,19 @@ export default async function BlogPostPage({ params }: PageProps) {
           ) : null}
           <CardContent className="p-0">
             <div className={`px-6 py-6 sm:px-8 sm:py-8 md:px-10 md:py-10 ${!post.imageUrl ? "pt-8 sm:pt-10" : ""} min-w-0 overflow-x-hidden`}>
-              <div className="prose prose-slate max-w-none prose-headings:font-semibold prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-[15px] sm:prose-p:text-base prose-p:last:mb-0 break-words">
-                {post.content.split("\n\n").map((paragraph, index) => (
-                  <p key={index} className="whitespace-pre-wrap break-words">
-                    {paragraph}
-                  </p>
-                ))}
+              <div className="prose prose-slate max-w-none prose-headings:font-semibold prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-[15px] sm:prose-p:text-base prose-p:last:mb-0 prose-img:rounded-lg prose-img:max-w-full break-words">
+                {post.content.trim().startsWith("<") ? (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                    className="[&_img]:rounded-lg [&_img]:max-w-full [&_img]:h-auto"
+                  />
+                ) : (
+                  post.content.split("\n\n").map((paragraph, index) => (
+                    <p key={index} className="whitespace-pre-wrap break-words">
+                      {paragraph}
+                    </p>
+                  ))
+                )}
               </div>
             </div>
           </CardContent>

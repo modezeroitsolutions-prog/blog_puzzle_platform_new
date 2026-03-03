@@ -154,8 +154,8 @@ export default function PuzzleLibraryPage() {
                     {puzzle.reward} coins
                   </span>
                 </div>
-                <CardTitle className="line-clamp-1">{puzzle.title}</CardTitle>
-                <CardDescription className="line-clamp-2">
+                <CardTitle className="line-clamp-2 leading-snug min-h-[2.5em]">{puzzle.title}</CardTitle>
+                <CardDescription className="line-clamp-2 leading-snug">
                   {puzzle.description}
                 </CardDescription>
               </CardHeader>

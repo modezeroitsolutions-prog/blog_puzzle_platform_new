@@ -17,6 +17,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/lib/auth-context";
 import { createBlog } from "@/lib/blogs";
+import { BlogEditor } from "@/components/BlogEditor";
 import { BookOpen, ArrowLeft, CheckCircle } from "lucide-react";
 
 export default function CreateBlogPage() {
@@ -65,6 +66,11 @@ export default function CreateBlogPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!firestoreUser) return;
+    const strippedContent = formData.content.replace(/<[^>]*>/g, "").trim();
+    if (!formData.content || !strippedContent) {
+      setLoadErr("Please add some content to your post.");
+      return;
+    }
     setSubmitting(true);
     setLoadErr("");
     try {
@@ -77,7 +83,10 @@ export default function CreateBlogPage() {
         imageUrl: formData.imageUrl || undefined,
       });
       setSubmitted(true);
-      setTimeout(() => router.push("/"), 2000);
+      setTimeout(() => {
+        router.push("/");
+        router.refresh();
+      }, 2000);
     } catch {
       setLoadErr("Failed to create blog post");
     } finally {
@@ -115,7 +124,7 @@ export default function CreateBlogPage() {
               Blog Post Details
             </CardTitle>
             <CardDescription>
-              Fill in the title, excerpt, and content. Author will default to your email.
+              Set a featured image for the header, then write your post. In the content you can add text, images, and lists.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -159,23 +168,19 @@ export default function CreateBlogPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="imageUrl">Image URL (optional)</Label>
+                  <Label htmlFor="imageUrl">Featured image (header) — one image for the post title</Label>
                   <Input
                     id="imageUrl"
                     value={formData.imageUrl}
                     onChange={(e) => handleChange("imageUrl", e.target.value)}
-                    placeholder="https://..."
+                    placeholder="https://... (optional)"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content *</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content}
-                    onChange={(e) => handleChange("content", e.target.value)}
-                    placeholder="Write your full blog post here. You can use multiple paragraphs."
-                    rows={12}
-                    required
+                  <Label>Content * — add paragraphs, images, and lists below</Label>
+                  <BlogEditor
+                    content={formData.content}
+                    onChange={(html) => handleChange("content", html)}
                   />
                 </div>
                 {loadErr && (
